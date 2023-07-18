@@ -87,8 +87,6 @@ namespace SpaceGame
             distance.X *= speed;
             distance.Y *= speed;
 
-            //Ya tenemos la distancia, ahora modificamos la posicion para que pueda moverse
-            Position = new Point(Position.X+distance.X,Position.Y+distance.Y);
         }
 
         //Funcion para mover la nave
@@ -100,10 +98,31 @@ namespace SpaceGame
                 Delete(); //Borramos los caracteres de la nave
 
                 Point distance = new Point(); //Distancia que se movera
-                Keyboard(ref distance,speed);
+                Keyboard(ref distance,speed); //Tecla presionada y punto a donde se movera
+                Collisions(distance); //En caso de colisiones estro lo arregla
 
                 Draw(); //Las volvemos a dibujar para que de el efecto de movimiento
             }
+        }
+
+        //Funcion para que la nave no rompa los marcos
+        public void Collisions(Point distance)
+        {
+            //Almacenamos la posicion que se supone que debe tener la nave en un auxiliar
+            Point positionAux = new Point(Position.X + distance.X, Position.Y + distance.Y);
+
+            //Validaciones para que no supere los marcos, la nave
+            if (positionAux.X <= WindowC.UpperLimit.X)
+                positionAux.X = WindowC.UpperLimit.X + 1;
+            if (positionAux.X + 6 >= WindowC.LowerLimit.X)
+                positionAux.X = WindowC.LowerLimit.X -7;
+            if(positionAux.Y <= WindowC.UpperLimit.Y)
+                positionAux.Y = WindowC.UpperLimit.Y + 1;
+            if (positionAux.Y + 2 >= WindowC.LowerLimit.Y)
+                positionAux.Y = WindowC.LowerLimit.Y - 3;
+
+            //Igualamos 
+            Position = positionAux; 
         }
     }
 }
