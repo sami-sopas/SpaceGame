@@ -7,20 +7,40 @@ namespace SpaceGame
     {
         static void Main(string[] args)
         {
+            Start();
+
+            Console.ReadKey();
+            
+        }
+
+        static void Start()
+        {
+            Window window;
+            Ship ship;
+
             //Inicializar ventana
-            Window window = new Window(
+            window = new Window(
                 Console.LargestWindowWidth, //Largo consola
                 Console.LargestWindowHeight, //Ancho consola
                 ConsoleColor.Black, //Color de fondo
-                new Point(3,1), //Coordenadas X para marco
-                new Point(118,28)); //Coordenadas Y para marco
+                new Point(3, 1), //Coordenadas X para marco
+                new Point(118, 28)); //Coordenadas Y para marco
 
             //Dibujar marco
             window.DrawFrame();
 
-            
-            Console.ReadKey();
-            
+            //Inicializar nave
+            ship = new Ship(
+                new Point(58,23),
+                ConsoleColor.White,
+                window);
+
+            //Dibujar nave
+            ship.Draw();
+
+
+
         }
+
     }
 }
