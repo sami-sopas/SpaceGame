@@ -20,6 +20,9 @@ namespace SpaceGame
         //Lista donde guardaremos las posiciones de la nave para poder eliminarlas cuando se mueva
         public List<Point> PositionsShip { get; set; } 
 
+        //Lista para guardar las balas y poder darle movimiento
+        public List<Bullet> Bullets { get; set; }
+
         public Ship(Point p, ConsoleColor c, Window w)
         {
             this.Position = p;
@@ -27,6 +30,7 @@ namespace SpaceGame
             this.WindowC = w;
             Health = 100;
             PositionsShip = new List<Point>();
+            Bullets = new List<Bullet>();
         }
 
         //Dibujar la nave
@@ -87,6 +91,48 @@ namespace SpaceGame
             distance.X *= speed;
             distance.Y *= speed;
 
+            //Creacion y posicionamiento de la bala
+            if(key.Key == ConsoleKey.RightArrow)
+            {
+                Bullet bullet = new Bullet(
+                    new Point(Position.X + 6, Position.Y + 2),
+                    ConsoleColor.White,
+                    BulletType.Normal);
+
+                Bullets.Add(bullet);
+            }
+            if (key.Key == ConsoleKey.LeftArrow)
+            {
+                Bullet bullet = new Bullet(
+                    new Point(Position.X, Position.Y + 2),
+                    ConsoleColor.White,
+                    BulletType.Normal);
+
+                Bullets.Add(bullet);
+            }
+            if (key.Key == ConsoleKey.UpArrow)
+            {
+                Bullet bullet = new Bullet(
+                    new Point(Position.X + 2, Position.Y - 2),
+                    ConsoleColor.White,
+                    BulletType.Special);
+
+                Bullets.Add(bullet);
+            }
+
+        }
+
+        //Funcion para disparar las balas
+        public void Shoot()
+        {
+            for(int i = 0; i < Bullets.Count; i++)
+            {
+                //Recordar que este metodo retorna true cuando colisiona con un limite
+                if(Bullets[i].Move(1,WindowC.UpperLimit.Y))
+                {
+                    Bullets.Remove(Bullets[i]); //Eliminamos esa bala que colisiona
+                }
+            }
         }
 
         //Funcion para mover la nave

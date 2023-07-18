@@ -5,8 +5,8 @@ namespace SpaceGame
 {
     class Program
     {
-        static Window window;
-        static Ship ship;
+        static Window? window;
+        static Ship? ship;
         static bool play = true;
         static void Main(string[] args)
         {
@@ -48,6 +48,8 @@ namespace SpaceGame
             while (play)
             {
                 ship.Move(2);
+                ship.Shoot();
+                //Thread.Sleep(50);
             }
         }
 
