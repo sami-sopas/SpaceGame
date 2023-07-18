@@ -5,9 +5,14 @@ namespace SpaceGame
 {
     class Program
     {
+        static Window window;
+        static Ship ship;
+        static bool play = true;
         static void Main(string[] args)
         {
+
             Start();
+            Game();
 
             Console.ReadKey();
             
@@ -15,8 +20,6 @@ namespace SpaceGame
 
         static void Start()
         {
-            Window window;
-            Ship ship;
 
             //Inicializar ventana
             window = new Window(
@@ -38,8 +41,14 @@ namespace SpaceGame
             //Dibujar nave
             ship.Draw();
 
+        }
 
-
+        static void Game()
+        {
+            while (play)
+            {
+                ship.Move(2);
+            }
         }
 
     }
