@@ -23,6 +23,12 @@ namespace SpaceGame
         //Lista para guardar las balas y poder darle movimiento
         public List<Bullet> Bullets { get; set; }
 
+        public float OverLoad { get; set; }
+
+        public bool OverLoadLimit { get; set; }
+
+        public float SuperShot { get; set; }
+
         public Ship(Point p, ConsoleColor c, Window w)
         {
             this.Position = p;
@@ -94,31 +100,95 @@ namespace SpaceGame
             //Creacion y posicionamiento de la bala
             if(key.Key == ConsoleKey.RightArrow)
             {
-                Bullet bullet = new Bullet(
-                    new Point(Position.X + 6, Position.Y + 2),
-                    ConsoleColor.White,
-                    BulletType.Normal);
+                if (!OverLoadLimit)
+                {
+                    Bullet bullet = new Bullet(
+                        new Point(Position.X + 6, Position.Y + 2),
+                        ConsoleColor.White,
+                        BulletType.Normal);
 
-                Bullets.Add(bullet);
+                    Bullets.Add(bullet);
+
+                    OverLoad += 1.2f; //Cada que se dispara, aumenta la sobrecarga
+
+                    if (OverLoad >= 100)
+                    {
+                        OverLoadLimit = true;
+                        OverLoad = 100;
+                    }
+                }
+
             }
+
             if (key.Key == ConsoleKey.LeftArrow)
             {
-                Bullet bullet = new Bullet(
-                    new Point(Position.X, Position.Y + 2),
-                    ConsoleColor.White,
-                    BulletType.Normal);
+                if (!OverLoadLimit)
+                {
+                    Bullet bullet = new Bullet(
+                        new Point(Position.X, Position.Y + 2),
+                        ConsoleColor.White,
+                        BulletType.Normal);
 
-                Bullets.Add(bullet);
+                    Bullets.Add(bullet);
+
+                    OverLoad += 1.2f; //Cada que se dispara, aumenta la sobrecarga
+
+                    if (OverLoad >= 100)
+                    {
+                        OverLoadLimit = true;
+                        OverLoad = 100;
+                    }
+                }
+
             }
             if (key.Key == ConsoleKey.UpArrow)
             {
-                Bullet bullet = new Bullet(
-                    new Point(Position.X + 2, Position.Y - 2),
-                    ConsoleColor.White,
-                    BulletType.Special);
+                if(SuperShot >= 100) //Solo la podremos disparar cuando tenga el 100
+                {
+                    Bullet bullet = new Bullet(
+                        new Point(Position.X + 2, Position.Y - 2),
+                        ConsoleColor.White,
+                        BulletType.Special);
 
-                Bullets.Add(bullet);
+                    Bullets.Add(bullet);
+
+                    //Una vez disparada, la colocamos en 0
+                    SuperShot = 0;
+                }
             }
+
+        }
+
+        //Mostrar informacion de la nave
+        public void Information()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(WindowC.UpperLimit.X, WindowC.UpperLimit.Y - 1);
+            Console.Write("VIDA: " + (int)Health + " %  ");
+
+            //Disminuir sobrecarga progresivamente
+            if (OverLoad <= 0) //No tener numero negativo en el super disparo
+                OverLoad = 0;
+            else //En cada iteracion va bajando
+                OverLoad -= 0.0007f;
+
+            if (OverLoad <= 50) //Para poder disparar una vez baje a 50% la sobrecarga
+                OverLoadLimit = false;
+
+            if (OverLoadLimit)
+                Console.ForegroundColor = ConsoleColor.Red;
+            else
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(WindowC.UpperLimit.X + 13, WindowC.UpperLimit.Y - 1);
+            Console.Write("SOBRECARGA: " + (int)OverLoad + " %  ");
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(WindowC.UpperLimit.X + 32, WindowC.UpperLimit.Y - 1);
+            Console.Write("SUPER DISPARO: " + (int)SuperShot + " %  ");
+            if (SuperShot >= 100)
+                SuperShot = 100;
+            else
+                SuperShot += 0.0007f; //Aqui va aumentando constantemente
 
         }
 
@@ -149,6 +219,8 @@ namespace SpaceGame
 
                 Draw(); //Las volvemos a dibujar para que de el efecto de movimiento
             }
+
+            Information();
         }
 
         //Funcion para que la nave no rompa los marcos

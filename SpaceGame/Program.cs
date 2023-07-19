@@ -10,9 +10,10 @@ namespace SpaceGame
         static bool play = true;
         static void Main(string[] args)
         {
-
             Start();
             Game();
+
+
 
             Console.ReadKey();
             
@@ -23,8 +24,8 @@ namespace SpaceGame
 
             //Inicializar ventana
             window = new Window(
-                Console.LargestWindowWidth, //Largo consola
-                Console.LargestWindowHeight, //Ancho consola
+                Console.LargestWindowWidth, //Ancho consola maximo (120)
+                Console.LargestWindowHeight, //Altura consola maximo (30)
                 ConsoleColor.Black, //Color de fondo
                 new Point(3, 1), //Coordenadas X para marco
                 new Point(118, 28)); //Coordenadas Y para marco
