@@ -19,6 +19,23 @@ namespace SpaceGame
             
         }
 
+        static void Game()
+        {
+            while (play)
+            {
+                ship.Move(2);
+                ship.Shoot();
+                //Thread.Sleep(50);
+
+                //cuando muera
+                if(ship.Health <= 0)
+                {
+                    play = false;
+                    ship.Dead();
+                }
+            }
+        }
+
         static void Start()
         {
 
@@ -44,15 +61,6 @@ namespace SpaceGame
 
         }
 
-        static void Game()
-        {
-            while (play)
-            {
-                ship.Move(2);
-                ship.Shoot();
-                //Thread.Sleep(50);
-            }
-        }
 
     }
 }

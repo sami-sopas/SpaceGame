@@ -234,13 +234,34 @@ namespace SpaceGame
                 positionAux.X = WindowC.UpperLimit.X + 1;
             if (positionAux.X + 6 >= WindowC.LowerLimit.X)
                 positionAux.X = WindowC.LowerLimit.X -7;
-            if(positionAux.Y <= WindowC.UpperLimit.Y)
-                positionAux.Y = WindowC.UpperLimit.Y + 1;
+            if(positionAux.Y <= (WindowC.UpperLimit.Y) + 15) //Le aumentamos 15 para que no pase de la mitad del mapa
+                positionAux.Y = (WindowC.UpperLimit.Y + 1) + 15;
             if (positionAux.Y + 2 >= WindowC.LowerLimit.Y)
                 positionAux.Y = WindowC.LowerLimit.Y - 3;
 
             //Igualamos 
             Position = positionAux; 
+        }
+
+        //Animacion de muerte
+        public void Dead()
+        {
+            Console.ForegroundColor = Color;
+
+            //Primero recorremos todos los caracteres de la nave 
+            foreach(Point p in PositionsShip)
+            {
+                Console.SetCursorPosition(p.X, p.Y);
+                Console.Write("X");
+                Thread.Sleep(200);
+            }
+
+            foreach (Point p in PositionsShip)
+            {
+                Console.SetCursorPosition(p.X, p.Y);
+                Console.Write(" ");
+                Thread.Sleep(200);
+            }
         }
     }
 }
