@@ -26,6 +26,8 @@ namespace SpaceGame
         {
             while (play)
             {
+                enemy1.Move();
+                enemy2.Move();
                 ship.Move(2);
                 ship.Shoot();
                 //Thread.Sleep(50);
@@ -70,7 +72,7 @@ namespace SpaceGame
             //Dibujar enemigo
             enemy1.Draw();
             enemy2.Draw();
-            boss.Draw();
+            //boss.Draw();
            
 
         }
