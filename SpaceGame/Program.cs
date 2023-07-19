@@ -7,6 +7,9 @@ namespace SpaceGame
     {
         static Window? window;
         static Ship? ship;
+        static Enemy? enemy1;
+        static Enemy? enemy2;
+        static Enemy? boss;
         static bool play = true;
         static void Main(string[] args)
         {
@@ -58,6 +61,17 @@ namespace SpaceGame
 
             //Dibujar nave
             ship.Draw();
+
+            //Creacion de enemigos
+            enemy1 = new Enemy(new Point(50, 10), ConsoleColor.Cyan, window, TypeEnemy.Normal);
+            enemy2 = new Enemy(new Point(30, 12), ConsoleColor.Red, window, TypeEnemy.Normal);
+            boss = new Enemy(new Point(70, 10), ConsoleColor.Magenta, window, TypeEnemy.Boss);
+
+            //Dibujar enemigo
+            enemy1.Draw();
+            enemy2.Draw();
+            boss.Draw();
+           
 
         }
 
