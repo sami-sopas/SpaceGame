@@ -88,7 +88,7 @@ namespace SpaceGame
             }
         }
 
-        //Retorna verdadero si la bala colisiona con los limites
+        //Retorna verdadero si la bala colisiona con los limites de la nave
         public bool Move(int speed, int limit)
         {
             //Si ya pasaron 30 milisegundos despues del ultimo movimiento, podremos volverla a mover
@@ -112,12 +112,37 @@ namespace SpaceGame
                         if (Position.Y <= limit)
                             return true;
                         break;
+                }
 
-                    case BulletType.Enemy: //Le aumentamos a Y su velocidad ya que iran de arriba a abajo
-                        Position = new Point(Position.X, Position.Y + speed);
-                        if(Position.Y >= limit)
-                            return true;
-                        break;
+                Draw(); //Volvemos a dibujar las balas
+
+                time = DateTime.Now; //Capturamos fecha y hora en que lo hizo
+            }
+
+            return false;
+        }
+
+        //Metodo exclusivo para balas enemigas
+        public bool Move(int speed, int limit,Ship ship)
+        {
+            //Si ya pasaron 30 milisegundos despues del ultimo movimiento, podremos volverla a mover
+            if (DateTime.Now > time.AddMilliseconds(30))
+            {
+                Delete(); //Borrar posiciones anteriores
+
+                Position = new Point(Position.X, Position.Y + speed);
+                if (Position.Y >= limit)
+                    return true;
+
+                //Recorremos la lista donde estan almacenadas todas las posiciones de los caracteres que forman a la nave
+                foreach(Point p in ship.PositionsShip)
+                {
+                    if(p.X == Position.X && p.Y == Position.Y) //si chocan las balas de los enemigos en la nave
+                    {
+                        //Le restamos vida a la nave
+                        ship.Health -= 5;
+                        return true; //Retornamos verdadero porque hubo colision
+                    }
                 }
 
                 Draw(); //Volvemos a dibujar las balas

@@ -61,8 +61,11 @@ namespace SpaceGame
         //Tiempo de disparo aleatorio de balas enemigas
         private float timeShootRandom;
 
+        //Para solucionar colisiones de balas con la nave
+        private Ship ShipC { get; set; }
 
-        public Enemy (Point p, ConsoleColor c, Window w, TypeEnemy t)
+
+        public Enemy (Point p, ConsoleColor c, Window w, TypeEnemy t, Ship shipC)
         {
             this.Position = p;
             this.Color = c;
@@ -78,6 +81,7 @@ namespace SpaceGame
             Bullets = new List<Bullet>();
             timeShoot = DateTime.Now;
             timeShootRandom = 200;
+            this.ShipC = shipC;
         }
 
         public void Draw()
@@ -352,12 +356,21 @@ namespace SpaceGame
         {
             for (int i = 0; i < Bullets.Count; i++)
             {
-                //Devuelve true cuando supera el limite del marco
-                if(Bullets[i].Move(1, WindowC.LowerLimit.Y))
+                //Devuelve true cuando supera el limite del marco, ya le enviamos la nave para las colisiones
+                if(Bullets[i].Move(1, WindowC.LowerLimit.Y,ShipC))
                 {
                     Bullets.Remove(Bullets[i]);
                 }
             }
+        }
+
+        //Mostrar informacion de los enemigos
+        public void Information(int distanceX)
+        {
+            //Recibimos la distancia en X desde el punto inicial del marco superior izquierdo
+            Console.ForegroundColor = Color;
+            Console.SetCursorPosition(WindowC.UpperLimit.X + distanceX, WindowC.UpperLimit.Y - 1);
+            Console.Write("Enemigo: " + (int)Health + " %  ");
         }
     }
 }
