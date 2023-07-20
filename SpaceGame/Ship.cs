@@ -29,6 +29,9 @@ namespace SpaceGame
 
         public float SuperShot { get; set; }
 
+        //Listas para guardar las posiciones de los enemigos (para hacerles daño)
+        public List<Enemy> Enemies { get; set; }
+
         public Ship(Point p, ConsoleColor c, Window w)
         {
             this.Position = p;
@@ -37,6 +40,7 @@ namespace SpaceGame
             Health = 100;
             PositionsShip = new List<Point>();
             Bullets = new List<Bullet>();
+            Enemies = new List<Enemy>();
         }
 
         //Dibujar la nave
@@ -198,7 +202,7 @@ namespace SpaceGame
             for(int i = 0; i < Bullets.Count; i++)
             {
                 //Recordar que este metodo retorna true cuando colisiona con un limite
-                if(Bullets[i].Move(1,WindowC.UpperLimit.Y))
+                if(Bullets[i].Move(1,WindowC.UpperLimit.Y,Enemies))
                 {
                     Bullets.Remove(Bullets[i]); //Eliminamos esa bala que colisiona
                 }

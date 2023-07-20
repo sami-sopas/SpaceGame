@@ -89,7 +89,7 @@ namespace SpaceGame
         }
 
         //Retorna verdadero si la bala colisiona con los limites de la nave
-        public bool Move(int speed, int limit)
+        public bool Move(int speed, int limit,List<Enemy> enemies)
         {
             //Si ya pasaron 30 milisegundos despues del ultimo movimiento, podremos volverla a mover
             if(DateTime.Now > time.AddMilliseconds(30))
@@ -104,6 +104,23 @@ namespace SpaceGame
                         Position = new Point(Position.X, Position.Y - speed);
                         if (Position.Y <= limit)
                             return true;
+
+                        foreach(Enemy e in enemies) //Recorremos los enemigos
+                        {
+                            foreach(Point p in e.PositionsEnemy) //Recorremos sus posiciones
+                            { 
+                                if(p.X == Position.X && p.Y == Position.Y) //Bala de la nave, colisiona con el enemigo
+                                {
+                                    e.Health -= 7; //Aqui se le baja la vida al enemigo
+                                    if(e.Health <= 0)
+                                    {
+                                        e.Health = 0;
+                                        e.IsAlive = false;
+                                    }
+                                    return true; //Retornamos verdadero porque hubo colision
+                                }
+                            }
+                        }
                         break;
 
 
@@ -111,6 +128,26 @@ namespace SpaceGame
                         Position = new Point(Position.X, Position.Y - speed);
                         if (Position.Y <= limit)
                             return true;
+
+                        foreach (Enemy e in enemies) //Recorremos los enemigos
+                        {
+                            foreach (Point p in e.PositionsEnemy) //Recorremos sus posiciones
+                            {
+                                foreach(Point pB in PositionsBullet) //Comparar posiciones de la bala especial con cada una de los enemigos
+                                {
+                                    if(p.X == pB.X && p.Y == pB.Y) //Colisiona bala especial con enemigo
+                                    {
+                                        e.Health -= 40;
+                                        if(e.Health <= 0)
+                                        {
+                                            e.Health = 0;
+                                            e.IsAlive =false;
+                                        }
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
                         break;
                 }
 

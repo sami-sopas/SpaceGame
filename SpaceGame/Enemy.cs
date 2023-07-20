@@ -195,7 +195,7 @@ namespace SpaceGame
                 RandomDirection(); //Generamos direcciona leatoria cada cierto tiempo
 
                 Point positionAux = Position;
-                Movement(ref positionAux); //Mover el enemigo segun la direccion a la que va
+                //Movement(ref positionAux); //Mover el enemigo segun la direccion a la que va
                 Collisions(positionAux);
 
                 Draw();
@@ -205,8 +205,8 @@ namespace SpaceGame
             }
 
             //CREACION DE BALAS
-            CreateBullets();
-            Shoot(); //ME QUEDE EN 27:17, ARREGLAR BUG DISPAROS
+            //CreateBullets();
+            //Shoot(); //ME QUEDE EN 27:17, ARREGLAR BUG DISPAROS
 
 
         }

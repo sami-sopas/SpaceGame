@@ -55,6 +55,10 @@ namespace SpaceGame
             enemy2.Draw();
             //boss.Draw();
 
+            //Agregamos los enemigos a la lista de enemigos de la nave
+            ship.Enemies.Add(enemy1);
+            ship.Enemies.Add(enemy2);
+
 
         }
 
