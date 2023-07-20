@@ -92,7 +92,7 @@ namespace SpaceGame
         public bool Move(int speed, int limit,List<Enemy> enemies)
         {
             //Si ya pasaron 30 milisegundos despues del ultimo movimiento, podremos volverla a mover
-            if(DateTime.Now > time.AddMilliseconds(30))
+            if(DateTime.Now > time.AddMilliseconds(20))
             {
                 Delete(); //Borrar posiciones anteriores
 
@@ -165,7 +165,7 @@ namespace SpaceGame
         public bool Move(int speed, int limit,Ship ship)
         {
             //Si ya pasaron 30 milisegundos despues del ultimo movimiento, podremos volverla a mover
-            if (DateTime.Now > time.AddMilliseconds(30))
+            if (DateTime.Now > time.AddMilliseconds(20))
             {
                 Delete(); //Borrar posiciones anteriores
 

@@ -11,6 +11,7 @@ namespace SpaceGame
         static Enemy? enemy2;
         static Enemy? boss;
         static bool play = true;
+        static bool FinalBoss = false;
         static void Main(string[] args)
         {
             Start();
@@ -53,12 +54,12 @@ namespace SpaceGame
             //Dibujar enemigo
             enemy1.Draw();
             enemy2.Draw();
-            boss.Draw();
+            //boss.Draw();
 
             //Agregamos los enemigos a la lista de enemigos de la nave
             ship.Enemies.Add(enemy1);
             ship.Enemies.Add(enemy2);
-            ship.Enemies.Add(boss);
+            //ship.Enemies.Add(boss);
 
 
         }
@@ -67,12 +68,25 @@ namespace SpaceGame
         {
             while (play)
             {
-                boss.Move();
-                boss.Information(100);
-                enemy1.Move();
-                enemy1.Information(60);
-                enemy2.Move();
-                enemy2.Information(80);
+                if(!enemy1.IsAlive && !enemy2.IsAlive) //Si los dos enemigos normales no estan bibos..
+                {
+                    //Hacemos que aparezca el jefe final
+                    FinalBoss = true;
+                }
+                if(FinalBoss) //Si esto se cumple es porque los enemigos normales murieron
+                {
+                    boss.Move();
+                    boss.Information(100);
+                }
+                else //Si no, seguimos mostrando los enemigos normales
+                {
+                    enemy1.Move();
+                    enemy1.Information(60);
+
+                    enemy2.Move();
+                    enemy2.Information(80);
+                }
+
                 ship.Move(2);
                 ship.Shoot();
                 //Thread.Sleep(50);

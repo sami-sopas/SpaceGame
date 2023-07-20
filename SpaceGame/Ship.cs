@@ -113,7 +113,7 @@ namespace SpaceGame
 
                     Bullets.Add(bullet);
 
-                    OverLoad += 1.2f; //Cada que se dispara, aumenta la sobrecarga
+                    OverLoad += 0.8f; //Cada que se dispara, aumenta la sobrecarga
 
                     if (OverLoad >= 100)
                     {
@@ -135,7 +135,7 @@ namespace SpaceGame
 
                     Bullets.Add(bullet);
 
-                    OverLoad += 1.2f; //Cada que se dispara, aumenta la sobrecarga
+                    OverLoad += 0.8f; //Cada que se dispara, aumenta la sobrecarga
 
                     if (OverLoad >= 100)
                     {
@@ -174,7 +174,7 @@ namespace SpaceGame
             if (OverLoad <= 0) //No tener numero negativo en el super disparo
                 OverLoad = 0;
             else //En cada iteracion va bajando
-                OverLoad -= 0.0007f;
+                OverLoad -= 0.009f;
 
             if (OverLoad <= 50) //Para poder disparar una vez baje a 50% la sobrecarga
                 OverLoadLimit = false;
@@ -192,7 +192,7 @@ namespace SpaceGame
             if (SuperShot >= 100)
                 SuperShot = 100;
             else
-                SuperShot += 0.0007f; //Aqui va aumentando constantemente
+                SuperShot += 0.009f; //Aqui va aumentando constantemente
 
         }
 
