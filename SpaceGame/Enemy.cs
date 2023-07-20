@@ -52,6 +52,15 @@ namespace SpaceGame
         //Para que no se muevan tan rapido y se logren ver bien los enemigos
         private DateTime timeMovement;
 
+        //Lista para guardar las balas
+        public List<Bullet> Bullets { get; set; }
+
+        //Guardar tiempo de creacion de balas enemigas
+        private DateTime timeShoot;
+
+        //Tiempo de disparo aleatorio de balas enemigas
+        private float timeShootRandom;
+
 
         public Enemy (Point p, ConsoleColor c, Window w, TypeEnemy t)
         {
@@ -66,6 +75,9 @@ namespace SpaceGame
             timeDirectionRandom = 1000;
             timeMovement = DateTime.Now;
             PositionsEnemy = new List<Point>();
+            Bullets = new List<Bullet>();
+            timeShoot = DateTime.Now;
+            timeShootRandom = 200;
         }
 
         public void Draw()
@@ -188,6 +200,10 @@ namespace SpaceGame
                 timeMovement = DateTime.Now;
             }
 
+            //CREACION DE BALAS
+            CreateBullets();
+            Shoot(); //ME QUEDE EN 27:17, ARREGLAR BUG DISPAROS
+
 
         }
 
@@ -297,5 +313,51 @@ namespace SpaceGame
 
         }
 
+        //Crear balas de los enemigos
+        public void CreateBullets()
+        {
+            //Si ya pasaron 200 mls desde la ultima bala creada, creamos una
+            if(DateTime.Now  > timeShoot.AddMilliseconds(timeShootRandom))
+            {
+                Random random = new Random();
+
+                if (TypeEnemyE == TypeEnemy.Normal)
+                {
+                    Bullet bullet = new Bullet(
+                        new Point(Position.X + 1, Position.Y + 2),
+                        Color,
+                        BulletType.Enemy);
+
+                    Bullets.Add(bullet);
+                    timeShootRandom = random.Next(200, 500); //Tiempo de generacion aleatorio
+                }
+                if (TypeEnemyE == TypeEnemy.Boss)
+                {
+                    Bullet bullet = new Bullet(
+                        new Point(Position.X + 4, Position.Y + 2),
+                        Color,
+                        BulletType.Enemy);
+
+                    Bullets.Add(bullet);
+                    timeShootRandom = random.Next(100, 150); //Tiempo de generacion ale
+                }
+
+                timeShoot = DateTime.Now;
+            }
+
+        }
+
+        
+        public void Shoot()
+        {
+            for (int i = 0; i < Bullets.Count; i++)
+            {
+                //Devuelve true cuando supera el limite del marco
+                if(Bullets[i].Move(1, WindowC.LowerLimit.Y))
+                {
+                    Bullets.Remove(Bullets[i]);
+                }
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace SpaceGame
     //Tipos de bala que tendremos
     public enum BulletType
     {
-        Normal, Special
+        Normal, Special, Enemy
     }
     internal class Bullet
     {
@@ -68,6 +68,14 @@ namespace SpaceGame
                     PositionsBullet.Add(new Point(x + 1, y + 2));
                     break;
 
+                //Bala de enemigo
+                case BulletType.Enemy:
+                    Console.SetCursorPosition(x, y);
+                    Console.Write("█");
+
+                    PositionsBullet.Add(new Point(x, y));
+                    break;
+
             }
         }
 
@@ -102,6 +110,12 @@ namespace SpaceGame
                     case BulletType.Special:
                         Position = new Point(Position.X, Position.Y - speed);
                         if (Position.Y <= limit)
+                            return true;
+                        break;
+
+                    case BulletType.Enemy: //Le aumentamos a Y su velocidad ya que iran de arriba a abajo
+                        Position = new Point(Position.X, Position.Y + speed);
+                        if(Position.Y >= limit)
                             return true;
                         break;
                 }
