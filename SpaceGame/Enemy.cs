@@ -180,6 +180,12 @@ namespace SpaceGame
         //Funcion para mover al enemigo
         public void Move()
         {
+            //Validamos que el enemigo este vivo
+            if(!IsAlive)
+            {
+                Death();
+                return;
+            }
 
             int time = 30; //Tiempo para enemigo normales
 
@@ -206,7 +212,7 @@ namespace SpaceGame
 
             //CREACION DE BALAS
             //CreateBullets();
-            //Shoot(); //ME QUEDE EN 27:17, ARREGLAR BUG DISPAROS
+            //Shoot(); 
 
 
         }
@@ -350,7 +356,6 @@ namespace SpaceGame
             }
 
         }
-
         
         public void Shoot()
         {
@@ -371,6 +376,73 @@ namespace SpaceGame
             Console.ForegroundColor = Color;
             Console.SetCursorPosition(WindowC.UpperLimit.X + distanceX, WindowC.UpperLimit.Y - 1);
             Console.Write("Enemigo: " + (int)Health + " %  ");
+        }
+
+        //Animacion de muerte
+        public void Death()
+        {
+            if(TypeEnemyE == TypeEnemy.Normal)
+            {
+                NormalDeath();
+            }
+            if (TypeEnemyE == TypeEnemy.Boss)
+            {
+                BossDeath();
+            }
+        }
+
+        //Animacion de muerte para enemigos normales
+        public void NormalDeath()
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            int x = Position.X;
+            int y = Position.Y;
+
+            Console.SetCursorPosition(x + 1, y);
+            Console.Write("▄▄Zzz");
+            Console.SetCursorPosition(x, y + 1);
+            Console.Write("████");
+            Console.SetCursorPosition(x, y + 2);
+            Console.Write("▀  ▀");
+
+            //Borramos sus psosicioens
+            PositionsEnemy.Clear();
+
+            //Borramos las balas que hayan quedado del enemigo
+            foreach(Bullet b in Bullets)
+            {
+                b.Delete();
+            }
+
+            Bullets.Clear();
+        }
+
+        //Animacion de muerte del boss
+        public void BossDeath()
+        {
+            Console.ForegroundColor = Color;
+
+            //Recorremos las posiciones del enemigo
+            foreach(Point p in PositionsEnemy)
+            {
+                Console.SetCursorPosition(p.X, p.Y);
+                Console.Write("▓");
+                Thread.Sleep(200);
+            }
+            foreach(Point p in PositionsEnemy)
+            {
+                Console.SetCursorPosition(p.X, p.Y);
+                Console.Write(" ");
+                Thread.Sleep(200);
+            }
+            //Eliminamos sus posiciones
+            PositionsEnemy.Clear();
+
+            //Eliminamos las balas que dejo
+            foreach(Bullet b in Bullets)
+            { 
+                b.Delete(); }
+
         }
     }
 }

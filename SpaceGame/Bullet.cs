@@ -116,6 +116,7 @@ namespace SpaceGame
                                     {
                                         e.Health = 0;
                                         e.IsAlive = false;
+                                        e.Death();
                                     }
                                     return true; //Retornamos verdadero porque hubo colision
                                 }
@@ -142,6 +143,7 @@ namespace SpaceGame
                                         {
                                             e.Health = 0;
                                             e.IsAlive =false;
+                                            e.Death();
                                         }
                                         return true;
                                     }

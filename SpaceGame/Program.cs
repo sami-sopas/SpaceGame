@@ -48,16 +48,17 @@ namespace SpaceGame
             //Creacion de enemigos
             enemy1 = new Enemy(new Point(50, 10), ConsoleColor.Cyan, window, TypeEnemy.Normal, ship);
             enemy2 = new Enemy(new Point(30, 12), ConsoleColor.Red, window, TypeEnemy.Normal, ship);
-            //boss = new Enemy(new Point(70, 10), ConsoleColor.Magenta, window, TypeEnemy.Boss);
+            boss = new Enemy(new Point(70, 10), ConsoleColor.Magenta, window, TypeEnemy.Boss,ship);
 
             //Dibujar enemigo
             enemy1.Draw();
             enemy2.Draw();
-            //boss.Draw();
+            boss.Draw();
 
             //Agregamos los enemigos a la lista de enemigos de la nave
             ship.Enemies.Add(enemy1);
             ship.Enemies.Add(enemy2);
+            ship.Enemies.Add(boss);
 
 
         }
@@ -66,10 +67,12 @@ namespace SpaceGame
         {
             while (play)
             {
+                boss.Move();
+                boss.Information(100);
                 enemy1.Move();
-                enemy1.Information(80);
+                enemy1.Information(60);
                 enemy2.Move();
-                enemy2.Information(100);
+                enemy2.Information(80);
                 ship.Move(2);
                 ship.Shoot();
                 //Thread.Sleep(50);
