@@ -10,7 +10,7 @@ namespace SpaceGame
     //Tipos de bala que tendremos
     public enum BulletType
     {
-        Normal, Special, Enemy
+        Normal, Special, Enemy, Menu
     }
     internal class Bullet
     {
@@ -76,6 +76,14 @@ namespace SpaceGame
                     PositionsBullet.Add(new Point(x, y));
                     break;
 
+                //Balas del menu
+                case BulletType.Menu:
+                    Console.SetCursorPosition(x, y);
+                    Console.Write("!");
+
+                    PositionsBullet.Add(new Point(x, y));
+                    break;
+
             }
         }
 
@@ -92,7 +100,7 @@ namespace SpaceGame
         public bool Move(int speed, int limit,List<Enemy> enemies)
         {
             //Si ya pasaron 30 milisegundos despues del ultimo movimiento, podremos volverla a mover
-            if(DateTime.Now > time.AddMilliseconds(20))
+            if(DateTime.Now > time.AddMilliseconds(35))
             {
                 Delete(); //Borrar posiciones anteriores
 
@@ -185,6 +193,26 @@ namespace SpaceGame
                         return true; //Retornamos verdadero porque hubo colision
                     }
                 }
+
+                Draw(); //Volvemos a dibujar las balas
+
+                time = DateTime.Now; //Capturamos fecha y hora en que lo hizo
+            }
+
+            return false;
+        }
+
+        //Metodo para las balas que se muestran en el MENU
+        public bool Move(int speed, int limit)
+        {
+            //Si ya pasaron 30 milisegundos despues del ultimo movimiento, podremos volverla a mover
+            if (DateTime.Now > time.AddMilliseconds(20))
+            {
+                Delete(); //Borrar posiciones anteriores
+                                                 //Le restamos porque la bala ira de abajo a arriba
+                Position = new Point(Position.X, Position.Y - speed);
+                if (Position.Y <= limit)
+                    return true;
 
                 Draw(); //Volvemos a dibujar las balas
 

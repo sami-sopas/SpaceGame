@@ -239,7 +239,6 @@ namespace SpaceGame
                 Point distance = new Point(); //Distancia que se movera
                 Keyboard(ref distance,speed); //Tecla presionada y punto a donde se movera
                 Collisions(distance); //En caso de colisiones estro lo arregla
-
                 
             }
 

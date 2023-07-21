@@ -9,7 +9,7 @@ namespace SpaceGame
 {
     public enum TypeEnemy
     {
-        Normal, Boss
+        Normal, Boss, Menu
     }
     internal class Enemy
     {
@@ -95,6 +95,10 @@ namespace SpaceGame
 
                 case TypeEnemy.Boss:
                     DrawBoss();
+                    break;
+
+                case TypeEnemy.Menu: //Enemigos que saldran en el menu
+                    DrawNormal();
                     break;
             }
         }
@@ -210,9 +214,13 @@ namespace SpaceGame
                 timeMovement = DateTime.Now;
             }
 
-            //CREACION DE BALAS
-            CreateBullets();
-            Shoot(); 
+            //CREACION DE BALAS PARA LOS ENEMIGOS QUE NO SON LOS DEL MENU (NO DISPARAN ESOS)
+            if(TypeEnemyE != TypeEnemy.Menu) //Si el enemigo a crear, no es del menu, entonces si disparara
+            {
+                CreateBullets();
+                Shoot();
+            }
+
 
 
         }
@@ -244,8 +252,14 @@ namespace SpaceGame
             if(TypeEnemyE == TypeEnemy.Boss)
                 width = 7; //ancho de boss
 
+            int lowerLimit = WindowC.UpperLimit.Y + 15; //Le asignamos el limite que tenia  (hasta la mitad)
+
+            if (TypeEnemyE == TypeEnemy.Menu) //Si el enemigo es del menu, entonces cambiamos su limite
+                lowerLimit = WindowC.LowerLimit.Y - 1; //Para que este pueda moverse por toda la pantalla
+ 
+
             //si la posicion de la nave supera el de los limites de la ventana, hacemos que cambie de direccion
-            if(positionAux.X <= WindowC.UpperLimit.X) //Colision sobrepasa izquierda
+            if (positionAux.X <= WindowC.UpperLimit.X) //Colision sobrepasa izquierda
             {
                 direction = Direction.Right;
                 positionAux.X = WindowC.UpperLimit.X + 1;
@@ -260,10 +274,10 @@ namespace SpaceGame
                 direction = Direction.Down;
                 positionAux.Y = WindowC.UpperLimit.Y + 1;
             }
-            if (positionAux.Y + 2 >= WindowC.UpperLimit.Y + 15) //Colision sobrepasa abajo (le sumamos 15 porque el limite esta a la mitad)
+            if (positionAux.Y + 2 >= lowerLimit) //Colision sobrepasa abajo (le sumamos 15 porque el limite esta a la mitad)
             {
                 direction = Direction.Up;
-                positionAux.Y = WindowC.UpperLimit.Y + 15 - 2;
+                positionAux.Y = lowerLimit - 2;
             }
 
             Position = positionAux; //Igualamos a la auxiliar donde hicimos los cambios
