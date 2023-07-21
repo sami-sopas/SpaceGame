@@ -32,6 +32,13 @@ namespace SpaceGame
         //Listas para guardar las posiciones de los enemigos (para hacerles daño)
         public List<Enemy> Enemies { get; set; }
 
+        //Propiedades para que la nave cambie de color cuando recibe un disparo
+        public ConsoleColor ColorAux { get; set; }
+
+        public DateTime TimeCollision { get; set; }
+
+
+
         public Ship(Point p, ConsoleColor c, Window w)
         {
             this.Position = p;
@@ -41,12 +48,24 @@ namespace SpaceGame
             PositionsShip = new List<Point>();
             Bullets = new List<Bullet>();
             Enemies = new List<Enemy>();
+            this.ColorAux = c;
+            this.TimeCollision = DateTime.Now;
         }
 
         //Dibujar la nave
         public void Draw()
         {
-            Console.ForegroundColor = Color;
+            //Verificamos si ya paso un segundo desde la colision de la bala de un enemigo con la nave
+            if(DateTime.Now > TimeCollision.AddMilliseconds(1000))
+            {
+                Console.ForegroundColor = Color; //Color de la nave
+            }
+            else
+            {
+                Console.ForegroundColor = ColorAux; //Color de la nave que lo colisiono
+            }
+
+            
             int x = Position.X;
             int y = Position.Y;
 
@@ -221,9 +240,10 @@ namespace SpaceGame
                 Keyboard(ref distance,speed); //Tecla presionada y punto a donde se movera
                 Collisions(distance); //En caso de colisiones estro lo arregla
 
-                Draw(); //Las volvemos a dibujar para que de el efecto de movimiento
+                
             }
 
+            Draw(); //Las volvemos a dibujar para que de el efecto de movimiento
             Information();
         }
 

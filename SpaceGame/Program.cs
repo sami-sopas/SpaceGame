@@ -59,7 +59,7 @@ namespace SpaceGame
             //Agregamos los enemigos a la lista de enemigos de la nave
             ship.Enemies.Add(enemy1);
             ship.Enemies.Add(enemy2);
-            //ship.Enemies.Add(boss);
+            ship.Enemies.Add(boss);
 
 
         }
@@ -68,10 +68,13 @@ namespace SpaceGame
         {
             while (play)
             {
-                if(!enemy1.IsAlive && !enemy2.IsAlive) //Si los dos enemigos normales no estan bibos..
+                if(!enemy1.IsAlive && !enemy2.IsAlive && !FinalBoss) //Si los dos enemigos normales no estan bibos..
                 {
                     //Hacemos que aparezca el jefe final
                     FinalBoss = true;
+                    Console.Clear();
+                    window.DrawFrame(); //TODO: checar porque no esta creando bien el marco a veces
+                    window.Danger();
                 }
                 if(FinalBoss) //Si esto se cumple es porque los enemigos normales murieron
                 {
@@ -91,11 +94,18 @@ namespace SpaceGame
                 ship.Shoot();
                 //Thread.Sleep(50);
 
-                //cuando muera
+                //cuando muera la nave
                 if(ship.Health <= 0)
                 {
                     play = false;
                     ship.Dead();
+                }
+
+                //Cuando muera el jefe, termina el juego
+                if(!boss.IsAlive)
+                {
+                    play = false;
+
                 }
             }
         }

@@ -87,5 +87,23 @@ namespace SpaceGame
             Console.SetCursorPosition(LowerLimit.X, LowerLimit.Y);
             Console.Write("╝");
         }
+
+        //Ventana de peligro cuando toca el boss
+        public void Danger()
+        {
+            //Console.Clear();
+
+            for(int i = 0; i < 6; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.SetCursorPosition(LowerLimit.X / 2 - 5, LowerLimit.Y / 2);
+                Console.Write("CUIDAO !!");
+                Thread.Sleep(200);
+                Console.SetCursorPosition(LowerLimit.X / 2 - 5, LowerLimit.Y / 2);
+                Console.Write("         ");
+                Thread.Sleep(200);
+
+            }
+        }
     }
 }

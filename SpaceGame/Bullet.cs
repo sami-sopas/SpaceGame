@@ -180,6 +180,8 @@ namespace SpaceGame
                     {
                         //Le restamos vida a la nave
                         ship.Health -= 5;
+                        ship.ColorAux = Color; //Asignamos al colorAux, el color de la nave que lo colisiono
+                        ship.TimeCollision = DateTime.Now; //Guardamos el momento en el que se hizo
                         return true; //Retornamos verdadero porque hubo colision
                     }
                 }
