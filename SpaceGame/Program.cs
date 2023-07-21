@@ -105,18 +105,45 @@ namespace SpaceGame
                     {
                         play = false;
                         ship.Dead();
+                        Restart();
                     }
 
                     //Cuando muera el jefe, termina el juego
                     if (!boss.IsAlive)
                     {
                         play = false;
-
+                        //Cuando el boss final muere
+                        Restart();
                     }
                 }
             }
 
             
+        }
+
+        static void Restart()
+        {
+            Console.Clear();
+            Thread.Sleep(100);
+            window.DrawFrame();
+
+            ship.Health = 100;
+            ship.SuperShot = 0;
+            ship.Bullets.Clear();
+
+            enemy1.Health = 100;
+            enemy1.IsAlive = true;
+
+            enemy2.Health = 100;
+            enemy2.IsAlive = true;
+
+            boss.Health = 100;
+            boss.IsAlive = true;
+            boss.PositionsEnemy.Clear();
+
+            FinalBoss = false;
+
+
         }
 
 
