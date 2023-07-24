@@ -120,7 +120,9 @@ namespace SpaceGame
                                 if(p.X == Position.X && p.Y == Position.Y) //Bala de la nave, colisiona con el enemigo
                                 {
                                     e.Health -= 7; //Aqui se le baja la vida al enemigo
-                                    if(e.Health <= 0)
+                                    Ship.SuperShot += 4f; //Cada que le demos a un enemigo, aumenta el superdisparo
+
+                                    if (e.Health <= 0)
                                     {
                                         e.Health = 0;
                                         e.IsAlive = false;
@@ -147,7 +149,8 @@ namespace SpaceGame
                                     if(p.X == pB.X && p.Y == pB.Y) //Colisiona bala especial con enemigo
                                     {
                                         e.Health -= 40;
-                                        if(e.Health <= 0)
+                                        Ship.SuperShot += 8f;
+                                        if (e.Health <= 0)
                                         {
                                             e.Health = 0;
                                             e.IsAlive =false;

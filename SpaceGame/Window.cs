@@ -130,10 +130,32 @@ namespace SpaceGame
             MoveBullets();
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(LowerLimit.X / 2 - 5, LowerLimit.Y / 2 - 1);
+            Console.SetCursorPosition(LowerLimit.X / 2 - 30, LowerLimit.Y / 2 - 10);
+            Console.Write("  ____                             ____                          ");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 30, LowerLimit.Y / 2 - 9);
+            Console.Write(" / ___|  _ __    __ _   ___  ___  / ___|  __ _  _ __ ___    ___  ");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 30, LowerLimit.Y / 2 - 8);
+            Console.Write(" \\___ \\ | '_ \\  / _` | / __|/ _ \\| |  _  / _` || '_ ` _ \\  / _ \\ ");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 30, LowerLimit.Y / 2 - 7);
+            Console.Write("  ___) || |_) || (_| || (__|  __/| |_| || (_| || | | | | ||  __/ ");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 30, LowerLimit.Y / 2 - 6);
+            Console.Write(" |____/ | .__/  \\__,_| \\___|\\___| \\____| \\__,_||_| |_| |_| \\___| ");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 30, LowerLimit.Y / 2 - 5);
+            Console.Write("        |_|                                                      ");
+
+ // ____                             ____                          
+ /// ___|  _ __    __ _   ___  ___  / ___|  __ _  _ __ ___    ___  
+ //\___ \ | '_ \  / _` | / __|/ _ \| |  _  / _` || '_ ` _ \  / _ \ 
+ // ___) || |_) || (_| || (__|  __/| |_| || (_| || | | | | ||  __/ 
+ //|____/ | .__/  \__,_| \___|\___| \____| \__,_||_| |_| |_| \___| 
+ //       |_|                                                      
+            Console.SetCursorPosition(LowerLimit.X / 2 - 6, LowerLimit.Y / 2);
             Console.Write("[ENTER] Jugar");
-            Console.SetCursorPosition(LowerLimit.X / 2 - 5, LowerLimit.Y / 2);
-            Console.Write("[ESC] Salir");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 6, LowerLimit.Y / 2 + 2);
+            Console.Write("[TAB]   Instrucciones");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 6, LowerLimit.Y / 2 + 4);
+            Console.Write("[ESC]   Salir");
+
 
         }
 
@@ -154,6 +176,14 @@ namespace SpaceGame
                 if (key.Key == ConsoleKey.Escape)
                 {
                     active = false;
+                }
+                if(key.Key == ConsoleKey.Tab)
+                {
+                    play = false;
+                    Instructions();
+                    Console.Clear();
+                    Thread.Sleep(100);
+                    DrawFrame();
                 }
             }
         }
@@ -235,6 +265,55 @@ namespace SpaceGame
                     RandomPositions(_bullets[i]); //Entonces le generamos una nueva posicion desde el inicio
 
             }
+        }
+
+        //Mostrar instrucciones
+        public void Instructions()
+        {
+            Console.Clear();
+
+            Thread.Sleep(100);
+
+            DrawFrame();
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 19, LowerLimit.Y - 24);
+            Console.Write("Tu mision no es solo eliminar amenazas externas,");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 24, LowerLimit.Y - 23);
+            Console.Write("sino también descubrir la esencia misma de tu existencia");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 35, LowerLimit.Y - 22);
+            Console.Write("¿Acaso tus enemigos no son reflejos de tus propios deseos, temores y pasiones?");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 30, LowerLimit.Y - 21);
+            Console.Write("¿Qué significado tiene la guerra en el inmenso lienzo del cosmos?");
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 32, LowerLimit.Y - 16);
+            Console.Write("[W] Arriba");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 32, LowerLimit.Y - 14);
+            Console.Write("[S] Abajo");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 32, LowerLimit.Y - 12);
+            Console.Write("[A] Izquierda");
+            Console.SetCursorPosition(LowerLimit.X / 2 - 32, LowerLimit.Y - 10);
+            Console.Write("[D] Derecha");
+
+            Console.SetCursorPosition(LowerLimit.X - 35, LowerLimit.Y - 15);
+            Console.Write("[^] SuperDisparo");
+            Console.SetCursorPosition(LowerLimit.X - 35, LowerLimit.Y - 13);
+            Console.Write("[>] Disparo derecha");
+            Console.SetCursorPosition(LowerLimit.X - 35, LowerLimit.Y - 11);
+            Console.Write("[<] Disparo izquierda");
+
+            Console.SetCursorPosition(LowerLimit.X - 56, LowerLimit.Y - 14);
+            Console.Write("A");
+            Console.SetCursorPosition(LowerLimit.X - 58, LowerLimit.Y - 13);
+            Console.Write("<{x}>");
+            Console.SetCursorPosition(LowerLimit.X - 59, LowerLimit.Y - 12);
+            Console.Write("± W W ±");
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 16, LowerLimit.Y - 4);
+            Console.Write("Presiona cualquier tecla para regresar...");
+
+            Console.ReadKey();
+
+
         }
     }
 }

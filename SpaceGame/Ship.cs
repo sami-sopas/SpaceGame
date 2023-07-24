@@ -23,11 +23,7 @@ namespace SpaceGame
         //Lista para guardar las balas y poder darle movimiento
         public List<Bullet> Bullets { get; set; }
 
-        public float OverLoad { get; set; }
-
-        public bool OverLoadLimit { get; set; }
-
-        public float SuperShot { get; set; }
+        public static float SuperShot { get; set; } //Estatica para poder modificarla desde Bullet
 
         //Listas para guardar las posiciones de los enemigos (para hacerles daño)
         public List<Enemy> Enemies { get; set; }
@@ -120,11 +116,9 @@ namespace SpaceGame
             distance.X *= speed;
             distance.Y *= speed;
 
-            //Creacion y posicionamiento de la bala
+            //Creacion y posicionamiento de la bala, dependiendo d
             if(key.Key == ConsoleKey.RightArrow)
             {
-                if (!OverLoadLimit)
-                {
                     Bullet bullet = new Bullet(
                         new Point(Position.X + 6, Position.Y + 2),
                         ConsoleColor.White,
@@ -132,36 +126,15 @@ namespace SpaceGame
 
                     Bullets.Add(bullet);
 
-                    OverLoad += 0.8f; //Cada que se dispara, aumenta la sobrecarga
-
-                    if (OverLoad >= 100)
-                    {
-                        OverLoadLimit = true;
-                        OverLoad = 100;
-                    }
-                }
-
             }
-
             if (key.Key == ConsoleKey.LeftArrow)
             {
-                if (!OverLoadLimit)
-                {
                     Bullet bullet = new Bullet(
                         new Point(Position.X, Position.Y + 2),
                         ConsoleColor.White,
                         BulletType.Normal);
 
                     Bullets.Add(bullet);
-
-                    OverLoad += 0.8f; //Cada que se dispara, aumenta la sobrecarga
-
-                    if (OverLoad >= 100)
-                    {
-                        OverLoadLimit = true;
-                        OverLoad = 100;
-                    }
-                }
 
             }
             if (key.Key == ConsoleKey.UpArrow)
@@ -189,30 +162,29 @@ namespace SpaceGame
             Console.SetCursorPosition(WindowC.UpperLimit.X, WindowC.UpperLimit.Y - 1);
             Console.Write("VIDA: " + (int)Health + " %  ");
 
-            //Disminuir sobrecarga progresivamente
-            if (OverLoad <= 0) //No tener numero negativo en el super disparo
-                OverLoad = 0;
-            else //En cada iteracion va bajando
-                OverLoad -= 0.009f;
+           // if (OverLoadLimit)
+            //    Console.ForegroundColor = ConsoleColor.Red;
+            //else
+           // Console.ForegroundColor = ConsoleColor.White;
+            //Console.SetCursorPosition(WindowC.UpperLimit.X + 13, WindowC.UpperLimit.Y - 1);
+            //Console.Write("SOBRECARGA: " + (int)OverLoad + " %  ");
 
-            if (OverLoad <= 50) //Para poder disparar una vez baje a 50% la sobrecarga
-                OverLoadLimit = false;
-
-            if (OverLoadLimit)
-                Console.ForegroundColor = ConsoleColor.Red;
-            else
             Console.ForegroundColor = ConsoleColor.White;
             Console.SetCursorPosition(WindowC.UpperLimit.X + 13, WindowC.UpperLimit.Y - 1);
-            Console.Write("SOBRECARGA: " + (int)OverLoad + " %  ");
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(WindowC.UpperLimit.X + 32, WindowC.UpperLimit.Y - 1);
             Console.Write("SUPER DISPARO: " + (int)SuperShot + " %  ");
             if (SuperShot >= 100)
+            {
                 SuperShot = 100;
-            else
-                SuperShot += 0.009f; //Aqui va aumentando constantemente
+                //Console.ForegroundColor = ConsoleColor.Green;
+            }
 
+            else
+            {
+                //Console.ForegroundColor = ConsoleColor.White; ;
+                //SuperShot += 0.009f; //Aqui va aumentando constantemente
+            }
+
+    
         }
 
         //Funcion para disparar las balas

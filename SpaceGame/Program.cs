@@ -1,20 +1,43 @@
 ﻿// .Net 7.0
 using System.Drawing;
+using System.Media;
 
 namespace SpaceGame
 {
     class Program
     {
-        static Window? window;
-        static Ship? ship;
-        static Enemy? enemy1;
-        static Enemy? enemy2;
-        static Enemy? boss;
+        static Window window;
+        static Ship ship;
+        static Enemy enemy1;
+        static Enemy enemy2;
+        static Enemy boss;
         static bool play = false;
         static bool FinalBoss = false;
         static bool active = true;
         static void Main(string[] args)
         {
+            /* NOTAS PARA LA REPRODUCCION DE SONIDOS, SOLO FUNCIONA EN WINDOWS
+             * 
+             * Pasos para agregar sonidos
+             * 1. Descarga el archivo en formato WAV
+             * 2. Click derecho a la solicion, agregar elemento existente y seleccionas el archivo
+             * 3. En propiedades activas la casilla de Copiar siempre
+             * 4. Instala System.Windows.Extensions mediante NuGet
+             * 
+             * 
+             */
+
+            //Console.WriteLine("hola");
+
+            //if(OperatingSystem.IsWindows())
+            //{
+            //    SoundPlayer song = new SoundPlayer("FlyMeToTheMoon.wav");
+
+            //    song.Load();
+            //    song.Play();
+            //}
+            //Console.WriteLine("adios");
+            //Console.ReadKey();
             Start();
             Game();
 
@@ -76,7 +99,8 @@ namespace SpaceGame
 
                 while (play) //EJECUCION DEL JUEGO
                 {
-                    if (!enemy1.IsAlive && !enemy2.IsAlive && !FinalBoss) //Si los dos enemigos normales no estan bibos..
+
+                    if (!enemy1.IsAlive && !enemy2.IsAlive && !FinalBoss) //Si los dos enemigos normales no estan vivos..
                     {
                         //Hacemos que aparezca el jefe final
                         FinalBoss = true;
@@ -128,7 +152,7 @@ namespace SpaceGame
             window.DrawFrame();
 
             ship.Health = 100;
-            ship.SuperShot = 0;
+            Ship.SuperShot = 0;
             ship.Bullets.Clear();
 
             enemy1.Health = 100;
