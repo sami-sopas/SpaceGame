@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -100,26 +101,52 @@ namespace SpaceGame
             Console.Write("╝");
         }
 
-        //Ventana de peligro cuando toca el boss
+        //Ventana de peligro cuando toca pelear contra el boss
         public void Danger()
         {
             Console.Clear();
             Thread.Sleep(100);
-            DrawFrame(); //TODO: checar porque no esta creando bien el marco a veces
+            DrawFrame();
 
+            Thread.Sleep(500);
+            WrittingSound();
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 6, LowerLimit.Y - 18);
+            Title("Nivel completado",100);
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 5, LowerLimit.Y - 16);
+            Title("Haz recibido:", 100);
+
+            Thread.Sleep(500);
+            BonusSound();
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 6, LowerLimit.Y - 13);
+            Console.Write("+ 40 de Vida");
+
+            Thread.Sleep(250);
+            Console.SetCursorPosition(LowerLimit.X / 2 - 6, LowerLimit.Y - 11);
+            Console.Write("+ 30 de SuperDisparo");
+
+
+
+            Thread.Sleep(2000);
             for (int i = 0; i < 6; i++)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.SetCursorPosition(LowerLimit.X / 2 - 5, LowerLimit.Y / 2);
+                Console.SetCursorPosition(LowerLimit.X / 2 - 2, LowerLimit.Y - 7);
                 Console.Write("CUIDAO !!");
-                Thread.Sleep(200);
-                Console.SetCursorPosition(LowerLimit.X / 2 - 5, LowerLimit.Y / 2);
+                Thread.Sleep(250);
+                Console.SetCursorPosition(LowerLimit.X / 2 - 2, LowerLimit.Y - 7);
                 Console.Write("         ");
                 Thread.Sleep(200);
 
 
 
             }
+
+            Console.Clear();
+            Thread.Sleep(100);
+            DrawFrame();
         }
 
         //Mostrar menu del juego
@@ -157,6 +184,7 @@ namespace SpaceGame
             Console.Write("[ESC]   Salir");
 
 
+
         }
 
         //Para detectar las teclas del menu
@@ -168,10 +196,17 @@ namespace SpaceGame
 
                 if(key.Key == ConsoleKey.Enter)
                 {
+                    ClickSound();
+                    Thread.Sleep(1000);
+
                     Console.Clear();
-                    Thread.Sleep(100);
+                    Thread.Sleep(150);
                     DrawFrame();
+                    Introduction();
                     play = true;
+                   
+
+
                 }
                 if (key.Key == ConsoleKey.Escape)
                 {
@@ -179,6 +214,7 @@ namespace SpaceGame
                 }
                 if(key.Key == ConsoleKey.Tab)
                 {
+                    ClickSound();
                     play = false;
                     Instructions();
                     Console.Clear();
@@ -310,10 +346,113 @@ namespace SpaceGame
 
             Console.SetCursorPosition(LowerLimit.X / 2 - 16, LowerLimit.Y - 4);
             Console.Write("Presiona cualquier tecla para regresar...");
+            
 
             Console.ReadKey();
+            ClickSound();
 
 
         }
+
+        //Sonido al hacer click en una de las teclas
+        public void ClickSound()
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                SoundPlayer song = new SoundPlayer("Sound.wav");
+
+                song.Load();
+                song.Play();
+            }
+        }
+
+        //Sonido de escritura
+        public void WrittingSound()
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                SoundPlayer song = new SoundPlayer("Writting.wav");
+
+                song.Load();
+                song.Play();
+            }
+        }
+
+        //Sonido de bonus
+        public void BonusSound()
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                SoundPlayer song = new SoundPlayer("Bonus.wav");
+
+                song.Load();
+                song.Play();
+            }
+        }
+
+        //Ventana a mostrar antes de iniciar el juego
+        public void Introduction()
+        {
+            WrittingSound();
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 10, LowerLimit.Y - 17);
+            Title("In my restless dreams,", 80);
+            Console.SetCursorPosition(LowerLimit.X / 2 - 9, LowerLimit.Y - 15);
+            Title("I see that planet...", 80);
+            Thread.Sleep(1500);
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 10, LowerLimit.Y - 17);
+            Console.Write("                       ");      
+            Console.SetCursorPosition(LowerLimit.X / 2 - 9, LowerLimit.Y - 15);
+            Console.Write("                       ");
+
+
+        }
+
+        //Ventana a mostrar despues de derrotar al primer enemigo
+        public void SecondLevel()
+        {
+            Console.Clear();
+            Thread.Sleep(100);
+            DrawFrame();
+
+            Thread.Sleep(500);
+            WrittingSound();
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 6, LowerLimit.Y - 18);
+            Title("Nivel completado", 100);
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 5, LowerLimit.Y - 16);
+            Title("Haz recibido:", 100);
+
+            Thread.Sleep(500);
+            BonusSound();
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 6, LowerLimit.Y - 13);
+            Console.Write("+ 20 de Vida");
+
+            Thread.Sleep(250);
+            Console.SetCursorPosition(LowerLimit.X / 2 - 6, LowerLimit.Y - 11);
+            Console.Write("+ 25 de SuperDisparo");
+
+
+
+            Thread.Sleep(2000);
+            Console.Clear();
+            Thread.Sleep(100);
+            DrawFrame();
+
+        }
+
+        //Para escribir lentamente
+        public void Title(string text, int speed)
+        {
+            foreach (char caracter in text)
+            {
+                Console.Write(caracter);
+                Thread.Sleep(speed);
+            }
+        }
+
     }
 }

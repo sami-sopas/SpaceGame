@@ -119,8 +119,8 @@ namespace SpaceGame
                             { 
                                 if(p.X == Position.X && p.Y == Position.Y) //Bala de la nave, colisiona con el enemigo
                                 {
-                                    e.Health -= 7; //Aqui se le baja la vida al enemigo
-                                    Ship.SuperShot += 4f; //Cada que le demos a un enemigo, aumenta el superdisparo
+                                    e.Health -= 7f; //Aqui se le baja la vida al enemigo
+                                    Ship.SuperShot += 5f; //Cada que le demos a un enemigo, aumenta el superdisparo
 
                                     if (e.Health <= 0)
                                     {
@@ -148,8 +148,8 @@ namespace SpaceGame
                                 {
                                     if(p.X == pB.X && p.Y == pB.Y) //Colisiona bala especial con enemigo
                                     {
-                                        e.Health -= 40;
-                                        Ship.SuperShot += 8f;
+                                        e.Health -= 20f;
+                                        Ship.SuperShot += 10f;
                                         if (e.Health <= 0)
                                         {
                                             e.Health = 0;
@@ -190,7 +190,7 @@ namespace SpaceGame
                     if(p.X == Position.X && p.Y == Position.Y) //si chocan las balas de los enemigos en la nave
                     {
                         //Le restamos vida a la nave
-                        ship.Health -= 5;
+                        ship.Health -= 4;
                         ship.ColorAux = Color; //Asignamos al colorAux, el color de la nave que lo colisiono
                         ship.TimeCollision = DateTime.Now; //Guardamos el momento en el que se hizo
                         return true; //Retornamos verdadero porque hubo colision

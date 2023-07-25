@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace SpaceGame
         //Lista para guardar las balas y poder darle movimiento
         public List<Bullet> Bullets { get; set; }
 
-        public static float SuperShot { get; set; } //Estatica para poder modificarla desde Bullet
+        public static float SuperShot { get; set; } //Static para poder acceder desde otra clase
 
         //Listas para guardar las posiciones de los enemigos (para hacerles daño)
         public List<Enemy> Enemies { get; set; }
@@ -126,6 +127,8 @@ namespace SpaceGame
 
                     Bullets.Add(bullet);
 
+                PlaySound(BulletType.Normal);
+
             }
             if (key.Key == ConsoleKey.LeftArrow)
             {
@@ -135,6 +138,8 @@ namespace SpaceGame
                         BulletType.Normal);
 
                     Bullets.Add(bullet);
+
+                PlaySound(BulletType.Normal);
 
             }
             if (key.Key == ConsoleKey.UpArrow)
@@ -150,6 +155,8 @@ namespace SpaceGame
 
                     //Una vez disparada, la colocamos en 0
                     SuperShot = 0;
+
+                    PlaySound(BulletType.Special);
                 }
             }
 
@@ -256,6 +263,26 @@ namespace SpaceGame
                 Console.SetCursorPosition(p.X, p.Y);
                 Console.Write(" ");
                 Thread.Sleep(200);
+            }
+        }
+
+        //Reproducir sonido de disparos
+        public void PlaySound(BulletType type)
+        {
+            //Sonidos de balas normales
+            if(BulletType.Normal == type )
+            {
+                SoundPlayer song = new SoundPlayer("Shoot.wav");
+
+                song.Load();
+                song.Play();
+            }
+            else if(BulletType.Special == type ) 
+            {
+                SoundPlayer song = new SoundPlayer("SuperShoot.wav");
+
+                song.Load();
+                song.Play();
             }
         }
     }
