@@ -165,33 +165,32 @@ namespace SpaceGame
         //Mostrar informacion de la nave
         public void Information()
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(WindowC.UpperLimit.X, WindowC.UpperLimit.Y - 1);
-            Console.Write("VIDA: " + (int)Health + " %  ");
 
-           // if (OverLoadLimit)
+            if (Health < 25)
+                Console.ForegroundColor = ConsoleColor.Red;
+            else
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(WindowC.UpperLimit.X, WindowC.UpperLimit.Y - 1);
+                Console.Write("VIDA: " + (int)Health + " %  ");
+
+
+            // if (OverLoadLimit)
             //    Console.ForegroundColor = ConsoleColor.Red;
             //else
-           // Console.ForegroundColor = ConsoleColor.White;
+            // Console.ForegroundColor = ConsoleColor.White;
             //Console.SetCursorPosition(WindowC.UpperLimit.X + 13, WindowC.UpperLimit.Y - 1);
             //Console.Write("SOBRECARGA: " + (int)OverLoad + " %  ");
 
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.SetCursorPosition(WindowC.UpperLimit.X + 13, WindowC.UpperLimit.Y - 1);
-            Console.Write("SUPER DISPARO: " + (int)SuperShot + " %  ");
             if (SuperShot >= 100)
-            {
-                SuperShot = 100;
-                //Console.ForegroundColor = ConsoleColor.Green;
-            }
-
+                Console.ForegroundColor = ConsoleColor.Green;
             else
-            {
-                //Console.ForegroundColor = ConsoleColor.White; ;
-                //SuperShot += 0.009f; //Aqui va aumentando constantemente
-            }
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(WindowC.UpperLimit.X + 13, WindowC.UpperLimit.Y - 1);
+                Console.Write("SUPER DISPARO: " + (int)SuperShot + " %  ");
+            if (SuperShot >= 100)
+                SuperShot = 100;
 
-    
+
         }
 
         //Funcion para disparar las balas
@@ -250,20 +249,39 @@ namespace SpaceGame
         {
             Console.ForegroundColor = Color;
 
+            Thread.Sleep(100);
+
+            DeathSound();
+
             //Primero recorremos todos los caracteres de la nave 
             foreach(Point p in PositionsShip)
             {
                 Console.SetCursorPosition(p.X, p.Y);
                 Console.Write("X");
-                Thread.Sleep(200);
+                Thread.Sleep(250);
             }
 
             foreach (Point p in PositionsShip)
             {
                 Console.SetCursorPosition(p.X, p.Y);
                 Console.Write(" ");
-                Thread.Sleep(200);
+                Thread.Sleep(250);
             }
+
+            Thread.Sleep(1000);
+            Console.Clear();
+
+
+            Console.SetCursorPosition(WindowC.LowerLimit.X / 2 - 4, WindowC.LowerLimit.Y - 17);
+            WindowC.Title(" Game Over", 200);
+
+            Thread.Sleep(300);
+
+            Console.SetCursorPosition(WindowC.LowerLimit.X / 2 - 14, WindowC.LowerLimit.Y - 6);
+            Console.Write("Presiona cualquier tecla para regresar...");
+
+            Thread.Sleep(100);
+            Console.ReadKey();
         }
 
         //Reproducir sonido de disparos
@@ -280,6 +298,18 @@ namespace SpaceGame
             else if(BulletType.Special == type ) 
             {
                 SoundPlayer song = new SoundPlayer("SuperShoot.wav");
+
+                song.Load();
+                song.Play();
+            }
+        }
+
+        //Sonido cuando muera la nave
+        public void DeathSound()
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                SoundPlayer song = new SoundPlayer("GameOver.wav");
 
                 song.Load();
                 song.Play();
