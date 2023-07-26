@@ -272,16 +272,18 @@ namespace SpaceGame
             Console.Clear();
 
 
-            Console.SetCursorPosition(WindowC.LowerLimit.X / 2 - 4, WindowC.LowerLimit.Y - 17);
+            Console.SetCursorPosition(WindowC.LowerLimit.X / 2 - 6, WindowC.LowerLimit.Y - 17);
             WindowC.Title(" Game Over", 200);
 
-            Thread.Sleep(300);
+            Thread.Sleep(500);
 
-            Console.SetCursorPosition(WindowC.LowerLimit.X / 2 - 14, WindowC.LowerLimit.Y - 6);
+            Console.SetCursorPosition(WindowC.LowerLimit.X / 2 - 17, WindowC.LowerLimit.Y - 6);
             Console.Write("Presiona cualquier tecla para regresar...");
 
-            Thread.Sleep(100);
-            Console.ReadKey();
+            Thread.Sleep(500);
+            Console.In.Read();
+            //Console.ReadKey();
+            Console.ReadLine();
         }
 
         //Reproducir sonido de disparos

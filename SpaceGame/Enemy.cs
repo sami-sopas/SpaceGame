@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -389,7 +390,7 @@ namespace SpaceGame
             //Recibimos la distancia en X desde el punto inicial del marco superior izquierdo
             Console.ForegroundColor = Color;
             Console.SetCursorPosition(WindowC.UpperLimit.X + distanceX, WindowC.UpperLimit.Y - 1);
-            Console.Write("Enemigo: " + (int)Health + " %  ");
+            Console.Write("ENEMIGO: " + (int)Health + " %  ");
         }
 
         //Animacion de muerte
@@ -409,6 +410,7 @@ namespace SpaceGame
         public void NormalDeath()
         {
             Console.ForegroundColor = ConsoleColor.White;
+            
             int x = Position.X;
             int y = Position.Y;
 
@@ -435,6 +437,7 @@ namespace SpaceGame
         public void BossDeath()
         {
             Console.ForegroundColor = Color;
+            DeathSoundBoss();
 
             //Recorremos las posiciones del enemigo
             foreach(Point p in PositionsEnemy)
@@ -455,8 +458,37 @@ namespace SpaceGame
             //Eliminamos las balas que dejo
             foreach(Bullet b in Bullets)
             { 
-                b.Delete(); }
+                b.Delete(); 
+            }
 
+            Console.ForegroundColor = ConsoleColor.White;
+
+
+        }
+
+
+        //Audio a reproducir cuando muera un enemigo
+        public static void DeathSound()
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                SoundPlayer song = new SoundPlayer("Death.wav");
+
+                song.Load();
+                song.Play();
+            }
+        }
+
+        //Audio a reproducir cuando muera el boss
+        public static void DeathSoundBoss()
+        {
+            if (OperatingSystem.IsWindows())
+            {
+                SoundPlayer song = new SoundPlayer("FlyMeToTheMoon.wav");
+
+                song.Load();
+                song.Play();
+            }
         }
     }
 }

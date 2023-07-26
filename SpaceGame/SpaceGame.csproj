@@ -15,6 +15,9 @@
     <None Update="Bonus.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Death.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="GameOver.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

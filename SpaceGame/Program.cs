@@ -13,9 +13,9 @@ namespace SpaceGame
         static Enemy enemy3;
         static Enemy boss;
         static bool play = false;
-        static bool FinalBoss = false;
         static bool active = true;
-        static int level = 1;
+        static bool showEnemies2And3 = false;
+        static bool showFinalBoss = false;
         static void Main(string[] args)
         {
             /* NOTAS PARA LA REPRODUCCION DE SONIDOS, SOLO FUNCIONA EN WINDOWS
@@ -24,25 +24,14 @@ namespace SpaceGame
              * 1. Descarga el archivo en formato WAV
              * 2. Click derecho a la solucion, agregar elemento existente y seleccionas el archivo
              * 3. En propiedades activas la casilla de Copiar siempre
-             * 4. Instala System.Windows.Extensions mediante NuGet
+             * 4. Instala System.Windows.Media mediante NuGet
              * 
              * 
              */
 
-            //Console.WriteLine("hola");
-
-            //if(OperatingSystem.IsWindows())
-            //{
-            //    SoundPlayer song = new SoundPlayer("FlyMeToTheMoon.wav");
-
-            //    song.Load();
-            //    song.Play();
-            //}
-            //Console.WriteLine("adios");
-            //Console.ReadKey();
-
-
             Start();
+            enemy1.IsAlive = false; enemy2.IsAlive = false; enemy3.IsAlive = false;
+            showFinalBoss = true;
             Game();
 
             
@@ -99,8 +88,7 @@ namespace SpaceGame
 
         static void Game()
         {
-            bool showEnemies2And3 = false;
-            bool showFinalBoss = false;
+
 
             while (active) //EJECUCION DEL PROGRAMA
             {
@@ -111,6 +99,7 @@ namespace SpaceGame
                 {
                     if (!enemy1.IsAlive && !showEnemies2And3) // Si el enemigo 1 muere y aún no mostramos a los enemigos 2 y 3
                     {
+                        Enemy.DeathSound();
                         Thread.Sleep(1700);
                         showEnemies2And3 = true;
 
@@ -140,6 +129,7 @@ namespace SpaceGame
 
                     if (!enemy2.IsAlive && !enemy3.IsAlive && !showFinalBoss) // Si los enemigos 2 y 3 mueren y aún no mostramos al jefe final
                     {
+                        Enemy.DeathSound();
                         Thread.Sleep(1500);
                         showFinalBoss = true;
                         window.Danger();// Aqui se avisa que aparecera el jefe 
@@ -180,7 +170,7 @@ namespace SpaceGame
                     else // Si no, seguimos mostrando al enemigo 1
                     {
                         enemy1.Move();
-                        enemy1.Information(60);
+                        enemy1.Information(100);
                     }
 
                     ship.Move(2);
@@ -199,7 +189,9 @@ namespace SpaceGame
                     if (!boss.IsAlive)
                     {
                         play = false;
-                        // Cuando el jefe final muere
+                        // Cuando el jefe final muere, mostramos un final
+                        window.End();
+                        //Despues reiniciamos el juego
                         Restart();
                     }
                 }
@@ -208,6 +200,7 @@ namespace SpaceGame
             
         }
 
+        //Reinciar el juego una vez terminado
         static void Restart()
         {
             Console.Clear();
@@ -227,15 +220,9 @@ namespace SpaceGame
             enemy3.Health = 100;
             enemy3.IsAlive = true;
 
-
-
             boss.Health = 100;
             boss.IsAlive = true;
             boss.PositionsEnemy.Clear();
-
-            FinalBoss = false;
-
-
         }
 
 

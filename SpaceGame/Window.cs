@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Media;
@@ -367,7 +369,7 @@ namespace SpaceGame
         }
 
         //Sonido de escritura
-        public void WrittingSound()
+        public static void WrittingSound()
         {
             if (OperatingSystem.IsWindows())
             {
@@ -452,6 +454,125 @@ namespace SpaceGame
                 Console.Write(caracter);
                 Thread.Sleep(speed);
             }
+        }
+
+        //eliminar titulo lentamente
+        public void DeleteTitle(string text,int speed)
+        {
+            foreach (char caracter in text)
+            {
+                Console.Write(" ");
+                Thread.Sleep(speed);
+            }
+        }
+
+        //Animacion final, creditos y mas
+        public void End()
+        {
+            
+            Thread.Sleep(1500);
+            Console.Clear();
+
+            Thread.Sleep(100);
+
+            DrawFrame();
+            //Mostrar mensaje
+            Console.SetCursorPosition(LowerLimit.X / 2 - 7, LowerLimit.Y - 21);
+            Title(" Lo he logrado", 200);
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 10, LowerLimit.Y - 19);
+            Title(" Pero... ¿A que costo?", 200);
+
+            Thread.Sleep(300);
+
+            //Eliminar mensaje
+            Console.SetCursorPosition(LowerLimit.X / 2 - 7, LowerLimit.Y - 21);
+            DeleteTitle(" Lo he logrado", 200);
+
+            Console.SetCursorPosition(LowerLimit.X / 2 - 10, LowerLimit.Y - 19);
+            DeleteTitle(" Pero... ¿A que costo?", 200);
+
+            //Console.SetCursorPosition(LowerLimit.X / 2 - 10, LowerLimit.Y - 16);
+            //Title(" No me siento realizado", 100);
+
+            //Console.SetCursorPosition(LowerLimit.X / 2 - 15, LowerLimit.Y - 14);
+            //Title(" Talvez, la verdadera batalla no fue esta,", 100);
+
+            //Console.SetCursorPosition(LowerLimit.X / 2 - 15, LowerLimit.Y - 12);
+            //Title(" Si no la que se libera dentro de mi alma", 100);
+
+            //Console.SetCursorPosition(LowerLimit.X / 2 - 14, LowerLimit.Y - 10);
+            //Title(" Y trasciende en el tempo y el espacio", 100);
+            
+            
+
+            //Dibujar nave
+            Console.SetCursorPosition(LowerLimit.X - 96, LowerLimit.Y - 14);
+            Title("A",100);
+            Console.SetCursorPosition(LowerLimit.X - 98, LowerLimit.Y - 13);
+            Title("<{x}>",100);
+            Console.SetCursorPosition(LowerLimit.X - 99, LowerLimit.Y - 12);
+            Title("± W W ±",100);
+
+            Thread.Sleep(250);
+
+            //Mostrar creditos
+
+            Console.SetCursorPosition(LowerLimit.X - 55, LowerLimit.Y - 24);
+            Title("GRACIAS POR JUGAR", 100);
+            Console.SetCursorPosition(LowerLimit.X - 52, LowerLimit.Y - 22);
+            Title("CREADO POR", 100);
+            Console.SetCursorPosition(LowerLimit.X - 53, LowerLimit.Y - 20);
+            Title("Sami Estudios", 100);
+            Console.SetCursorPosition(LowerLimit.X - 50, LowerLimit.Y - 18);
+            Title("MUSICA", 100);
+            Console.SetCursorPosition(LowerLimit.X - 51, LowerLimit.Y - 16);
+            Title("YouTube", 100);
+            Console.SetCursorPosition(LowerLimit.X - 55, LowerLimit.Y - 14);
+            Title("DESARROLADO POR", 100);
+            Console.SetCursorPosition(LowerLimit.X - 53, LowerLimit.Y - 12);
+            Title("Cacahuates", 100);
+            Console.SetCursorPosition(LowerLimit.X - 61, LowerLimit.Y - 10);
+            Title("AGRADECIMIENTOS ESPECIALES A", 100);
+            Console.SetCursorPosition(LowerLimit.X - 54, LowerLimit.Y - 8);
+            Title("Mi memoria RAM", 100);
+            Console.SetCursorPosition(LowerLimit.X - 54, LowerLimit.Y - 7);
+            Title("Mi procesador", 100);
+
+
+            //Ir eliminando creditos
+
+            Console.SetCursorPosition(LowerLimit.X - 55, LowerLimit.Y - 24);
+            DeleteTitle("GRACIAS POR JUGAR", 100);
+            Console.SetCursorPosition(LowerLimit.X - 52, LowerLimit.Y - 22);
+            DeleteTitle("CREADO POR", 100);
+            Console.SetCursorPosition(LowerLimit.X - 53, LowerLimit.Y - 20);
+            DeleteTitle("Sami Estudios", 100);
+            Console.SetCursorPosition(LowerLimit.X - 50, LowerLimit.Y - 18);
+            DeleteTitle("MUSICA", 100);
+            Console.SetCursorPosition(LowerLimit.X - 51, LowerLimit.Y - 16);
+            DeleteTitle("YouTube", 100);
+            Console.SetCursorPosition(LowerLimit.X - 55, LowerLimit.Y - 14);
+            DeleteTitle("DESARROLADO POR", 100);
+            Console.SetCursorPosition(LowerLimit.X - 53, LowerLimit.Y - 12);
+            DeleteTitle("Cacahuates", 100);
+            Console.SetCursorPosition(LowerLimit.X - 61, LowerLimit.Y - 10);
+            DeleteTitle("AGRADECIMIENTOS ESPECIALES A", 100);
+            Console.SetCursorPosition(LowerLimit.X - 54, LowerLimit.Y - 8);
+            DeleteTitle("Mi memoria RAM", 100);
+            Console.SetCursorPosition(LowerLimit.X - 54, LowerLimit.Y - 7);
+            DeleteTitle("Mi procesador", 100);
+
+            Thread.Sleep(250);
+
+
+            //Fin
+            Console.SetCursorPosition(LowerLimit.X - 70, LowerLimit.Y - 13);
+            Console.Write("Presiona cualquier tecla para volver al menu...");
+
+            Console.ReadKey();
+
+
         }
 
     }
