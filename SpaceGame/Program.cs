@@ -24,7 +24,7 @@ namespace SpaceGame
              * 1. Descarga el archivo en formato WAV
              * 2. Click derecho a la solucion, agregar elemento existente y seleccionas el archivo
              * 3. En propiedades activas la casilla de Copiar siempre
-             * 4. Instala System.Windows.Media mediante NuGet
+             * 4. Instala System.Windows.Extensions mediante NuGet
              * 
              * 
              */
