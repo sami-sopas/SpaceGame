@@ -30,8 +30,6 @@ namespace SpaceGame
              */
 
             Start();
-            enemy1.IsAlive = false; enemy2.IsAlive = false; enemy3.IsAlive = false;
-            showFinalBoss = true;
             Game();
 
             

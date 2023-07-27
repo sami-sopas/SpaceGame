@@ -529,7 +529,7 @@ namespace SpaceGame
             Console.SetCursorPosition(LowerLimit.X - 51, LowerLimit.Y - 16);
             Title("YouTube", 100);
             Console.SetCursorPosition(LowerLimit.X - 55, LowerLimit.Y - 14);
-            Title("DESARROLADO POR", 100);
+            Title("DESARROLLADO POR", 100);
             Console.SetCursorPosition(LowerLimit.X - 53, LowerLimit.Y - 12);
             Title("Cacahuates", 100);
             Console.SetCursorPosition(LowerLimit.X - 61, LowerLimit.Y - 10);
@@ -570,6 +570,7 @@ namespace SpaceGame
             Console.SetCursorPosition(LowerLimit.X - 70, LowerLimit.Y - 13);
             Console.Write("Presiona cualquier tecla para volver al menu...");
 
+            Console.ReadKey();
             Console.ReadKey();
 
 
