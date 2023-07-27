@@ -18,6 +18,7 @@ It's very easy to understand, but I'll leave the instructions below
 
 ## How to play 📑  
 
+You can find the steps to **download and run** the game at  [SpaceGame](https://github.com/sami-sopas/SpaceGame/releases/latest)
 
 The game contains 3 levels with different difficulties, the objective is to defeat all the enemies.  
 
@@ -34,7 +35,14 @@ You can only use the special shoot when it is at 100%. This charges up every tim
 
 if you lose, the game restarts and you'll have to try from the beginning.  
 
-Every time you clear a level, you recover a bit of your stats so you can keep fighting.
+Every time you clear a level, you recover a bit of your stats so you can keep fighting.  
+
+## Gameplay 🚀  
+
+A look at what the game looks like  
+
+
+https://github.com/sami-sopas/SpaceGame/assets/99571985/9ddecf60-4f04-4a55-9eae-ab4f07fcb440
 
 
 
